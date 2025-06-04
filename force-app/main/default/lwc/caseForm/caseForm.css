@@ -1,0 +1,9 @@
+.combobox-wrapper {
+    position: relative;
+    z-index: 10000; 
+}
+
+lightning-record-form {
+    z-index: 1;
+    position: relative;
+}

@@ -1,4 +1,4 @@
-import {api,LightningElement, track } from 'lwc';
+import {LightningElement, track } from 'lwc';
 import getGames from '@salesforce/apex/GameController.getGames';
 import getGenrePicklistValues from '@salesforce/apex/GameController.getGenrePicklistValues'
 import getPlatformPicklistValues from '@salesforce/apex/GameController.getPlatformPicklistValues'

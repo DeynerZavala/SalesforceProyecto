@@ -1,8 +1,26 @@
 <template>
-    <lightning-record-form
-        object-api-name={objectApiName}
-        record-id={recordId}
-        fields={fields}
-    >
-    </lightning-record-form>
+    
+    <div>
+        <lightning-combobox
+        class ="combobox-wrapper"
+        name="RecordType"
+        label="Tipo de Caso"
+        value={valueRecordType}
+        placeholder="Select Progress"
+        options={recordOptions}
+        onchange={handleChange}  
+        disabled={desactivedRecordPicklist}
+        ></lightning-combobox>
+    </div>
+    <div>
+        <lightning-record-form
+            object-api-name="Case"
+            record-id={recordId}
+            record-type-id={recordTypeId}
+            fields={fields}
+            onsuccess={handleSuccess}
+        >
+        </lightning-record-form>
+    </div>
+
 </template>
