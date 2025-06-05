@@ -9,6 +9,7 @@ public with sharing class GameTriggerRepository {
         Map<String, Integer> keyCountMap = new Map<String, Integer>();
         
         for (Game__c g : newGamesList) {
+            if (g.Name== null || g.Platform__c == null) continue;
             String key = g.Name.trim().toLowerCase() + '###' + g.Platform__c.trim().toLowerCase();
             if (keyCountMap.containsKey(key)) {
                 keyCountMap.put(key, keyCountMap.get(key) + 1);
@@ -19,6 +20,9 @@ public with sharing class GameTriggerRepository {
             platformSet.add(g.Platform__c.trim());
         }
 
+        if (nameSet.isEmpty() || platformSet.isEmpty()) {
+            return;
+        }
         List<Game__c> existingGames = [
             SELECT Id, Name, Platform__c 
             FROM Game__c 
@@ -43,7 +47,7 @@ public with sharing class GameTriggerRepository {
                 if (!seen.contains(key)) {
                     seen.add(key);
                 } else {
-                    g.Name.addError('Ya existe un juego con ese nombre en la plataforma de "'+ g.Platform__c+'"');
+                    g.Name.addError('Ya existe un juego en la lista con ese nombre en la plataforma de "'+ g.Platform__c+'"');
                 }
             }
         }
