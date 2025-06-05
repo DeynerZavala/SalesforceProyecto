@@ -42,11 +42,10 @@ export default class GameList extends LightningElement {
         this.loadValuesPicklist();
     }
 
-    
     loadValuesPicklist(){
         getGenrePicklistValues()
         .then(data => {
-            this.genrePicklistValue = data;
+            this.genrePicklistValue = [{ label: 'Todos', value: '' }, ...data];
         }
         )
         .catch(error => {
@@ -54,7 +53,7 @@ export default class GameList extends LightningElement {
         });
         getPlatformPicklistValues()
         .then(data => {
-            this.platformPicklistValue = data;
+            this.platformPicklistValue = [{ label: 'Todos', value: '' }, ...data];
         }
         )
         .catch(error => {
@@ -121,6 +120,9 @@ export default class GameList extends LightningElement {
     }
     toggleFilters(){
         this.isFilterActive = !this.isFilterActive;
+        if(!this.isFilterActive){
+
+        }
     }
     get tableClass() {
         return this.isFilterActive ? 'table-with-filter' : 'table-full';
@@ -128,11 +130,15 @@ export default class GameList extends LightningElement {
     handlePlatform(evt){
         this.platform = evt.target.value;
         this.currentPage = 1;
-        this.loadGames();
+        if(!this.platform){
+            this.loadGames();
+        }
     }
     handleGenre(evt){
         this.genre = evt.target.value;
         this.currentPage = 1;
-        this.loadGames();
+        if(!this.platform){
+            this.loadGames();
+        }
     }
 }
