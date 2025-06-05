@@ -14,11 +14,11 @@
     </div>
     <div>
         <lightning-record-form
-            object-api-name="Case"
-            record-id={recordId}
+            object-api-name={objectApiName}
             record-type-id={recordTypeId}
             fields={fields}
             onsuccess={handleSuccess}
+            onsubmit={handleSubmit}
         >
         </lightning-record-form>
     </div>
