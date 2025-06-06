@@ -7,7 +7,7 @@ public with sharing class GameTriggerRepository {
         Set<String> nameSet = new Set<String>();
         Set<String> platformSet = new Set<String>();
         Map<String, Integer> keyCountMap = new Map<String, Integer>();
-        
+         Set<Id> newGameIds = new Set<Id>();
         for (Game__c g : newGamesList) {
             if (g.Name== null || g.Platform__c == null) continue;
             String key = g.Name.trim().toLowerCase() + '###' + g.Platform__c.trim().toLowerCase();
@@ -18,6 +18,10 @@ public with sharing class GameTriggerRepository {
             }
             nameSet.add(g.Name.trim());
             platformSet.add(g.Platform__c.trim());
+
+            if(g.Id != null) {
+                newGameIds.add(g.Id);
+            }
         }
 
         if (nameSet.isEmpty() || platformSet.isEmpty()) {

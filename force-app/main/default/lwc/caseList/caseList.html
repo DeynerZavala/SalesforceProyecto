@@ -1,0 +1,61 @@
+<template>
+    <div class="container">
+        <div class="options-bar">
+            <div>
+                <lightning-input
+                    class="search-input"
+                    placeholder="Buscar por asunto"
+                    onchange={handleSearch}>
+                </lightning-input>
+            </div>
+            <div>
+                <lightning-button-icon-stateful 
+                    class="filter-btn"
+                    icon-name="utility:filterList"
+                    alternative-text="Filtrar"
+                    selected={isFilterActive}
+                    title="Filtrar"
+                    onclick={toggleFilters}>
+                </lightning-button-icon-stateful>
+            </div>
+        </div>
+        <div class="container-table-filter" >
+            <div class={tableClass}>
+                <lightning-datatable
+                    key-field="Id"
+                    columns={columns}
+                    data={cases}
+                    hide-checkbox-column="true"
+                    sorted-direction={sortDirection}
+                    sorted-by={sortedBy}
+                    onsort={handleSort}>
+                </lightning-datatable>
+            </div>
+            <template if:true={isFilterActive}>
+                <div class="filter-panel"  >
+                    <lightning-combobox
+                        name="Priority"
+                        label="Prioridad"
+                        value={selectedPriority}
+                        options={priorityPicklistValue}
+                        onchange={handlePriority}
+                    >
+                    </lightning-combobox>
+                    <lightning-combobox
+                        name="Status"
+                        label="Status"
+                        value={selectedStatus}
+                        options={statusPicklistValue}
+                        onchange={handleStatus}
+                    >
+                    </lightning-combobox>
+                </div>
+            </template>
+        </div>
+        <div class="slds-grid slds-grid_align-spread pagination-controls ">
+            <lightning-button label="Anterior" onclick={handlePrev} disabled={disabledPrev}></lightning-button>
+            <span>Page {currentPage}</span>
+            <lightning-button label="Siguiente" onclick={handleNext} disabled={disabledNext}></lightning-button>
+        </div>
+    </div>
+</template>

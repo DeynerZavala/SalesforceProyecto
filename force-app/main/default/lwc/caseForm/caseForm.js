@@ -47,9 +47,24 @@ export default class CaseForm extends LightningElement {
         const fields = evt.detail.fields;
         console.log(fields);
         fields.ContactId = this.contactId ? this.contactId : null;
-        fields.Origin = 'Web';
+        fields.Origin = 'Web Portal';
     }
     handleSuccess(){
         this.desactivedRecordPicklist = true;
+        console.log('exito');
+    }
+    handleError(event) {
+        const message = event?.detail?.message;
+        console.log(message)
+        console.log('error')
+        this.showToast('Error', message, 'error');
+    }
+
+    showToast(title, message, variant) {
+        this.dispatchEvent(new ShowToastEvent({
+            title: title,
+            message: message,
+            variant: variant,
+        }));
     }
 }
