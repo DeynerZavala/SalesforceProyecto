@@ -1,0 +1,42 @@
+
+.container {
+  min-height: 75dvh; 
+  max-height: 75dvh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+.options-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  gap: 0rem 0.5rem;
+  padding: 0.0rem 1rem;
+  flex-shrink: 0;
+}
+
+.container-table-filter{
+  flex-grow: 1;
+  display: flex; 
+  padding: 0.5rem;
+}
+
+.table-full {
+  width: 100%;
+}
+
+.table-with-filter {
+  width: 80%;
+}
+
+.filter-panel {
+  flex: 0 0 20%;
+  background: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  padding: 1rem;
+  transition: all 0.3s ease;
+}
+.pagination-controls {
+  flex-shrink: 0;
+  padding: 0.2rem 1rem;
+}

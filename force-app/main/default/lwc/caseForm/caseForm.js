@@ -57,14 +57,6 @@ export default class CaseForm extends LightningElement {
         const message = event?.detail?.message;
         console.log(message)
         console.log('error')
-        this.showToast('Error', message, 'error');
     }
-
-    showToast(title, message, variant) {
-        this.dispatchEvent(new ShowToastEvent({
-            title: title,
-            message: message,
-            variant: variant,
-        }));
-    }
+    
 }

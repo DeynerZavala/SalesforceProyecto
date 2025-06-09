@@ -4,7 +4,7 @@
             <div>
                 <lightning-input
                     class="search-input"
-                    placeholder="Buscar por asunto"
+                    placeholder="Buscar por nombre"
                     onchange={handleSearch}>
                 </lightning-input>
             </div>
@@ -24,7 +24,7 @@
                 <lightning-datatable
                     key-field="Id"
                     columns={columns}
-                    data={cases}
+                    data={games}
                     hide-checkbox-column="true"
                     sorted-direction={sortDirection}
                     sorted-by={sortedBy}
@@ -33,28 +33,20 @@
             </div>
             <template if:true={isFilterActive}>
                 <div class="filter-panel"  >
-                    <lightning-input
-                        type="checkbox"
-                        label="Solo casos abiertos"
-                        name="opened"
-                        checked={openedCase}
-                        onchange={handleOpenedCase}>
-                    </lightning-input>
-
                     <lightning-combobox
-                        name="Priority"
-                        label="Prioridad"
-                        value={selectedPriority}
-                        options={priorityPicklistValue}
-                        onchange={handlePriority}
+                        name="Platform"
+                        label="Plataforma"
+                        value={selectedPlatform}
+                        options={platformPicklistValue}
+                        onchange={handlePlatform}
                     >
                     </lightning-combobox>
                     <lightning-combobox
-                        name="Status"
-                        label="Status"
-                        value={selectedStatus}
-                        options={statusPicklistValue}
-                        onchange={handleStatus}
+                        name="Genre"
+                        label="Género"
+                        value={selectedGenre}
+                        options={genrePicklistValue}
+                        onchange={handleGenre}
                     >
                     </lightning-combobox>
                 </div>

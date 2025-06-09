@@ -1,4 +1,4 @@
-import {LightningElement, track } from 'lwc';
+import {LightningElement, track,api } from 'lwc';
 import getCases from '@salesforce/apex/CaseController.getCaseByContact';
 import getStatusPicklistValues from '@salesforce/apex/CaseController.getStatusPicklistValues'
 import getPriorityPicklistValues from '@salesforce/apex/CaseController.getPriorityPicklistValues'
@@ -26,7 +26,8 @@ export default class CaseList extends LightningElement {
     @track cases = [];
     @track currentPage = 1;
     isFilterActive = false;
-
+    @api
+    openedCase=false; 
     columns = COLUMNS;
     searchText = '';
     priority = '';
@@ -72,8 +73,10 @@ export default class CaseList extends LightningElement {
             offset: this.offset,
             limitRow: ROW_SIZE_MAX,
             sortDirection: this.sortDirection,
+            openedCase: this.openedCase
         })
         .then(data => {
+            console.log("opened:", this.openedCase);
             console.log("Data:", data);
             this.cases = data.map(item => ({
                 ...item,
@@ -136,15 +139,15 @@ export default class CaseList extends LightningElement {
     handlePriority(evt){
         this.priority = evt.target.value;
         this.currentPage = 1;
-        if(!this.priority){
-            this.loadCases();
-        }
+        this.loadCases();
     }
     handleStatus(evt){
         this.status = evt.target.value;
         this.currentPage = 1;
-        if(!this.priority){
-            this.loadCases();
-        }
+        this.loadCases();
+    }
+    handleOpenedCase(event) {
+        this.openedCase = event.target.checked;
+        this.loadCases();
     }
 }

@@ -1,19 +1,16 @@
 import {LightningElement, track } from 'lwc';
-import getGames from '@salesforce/apex/GameController.getGames';
+import getMyGames from '@salesforce/apex/GameController.getUserGameRelations';
 import getGenrePicklistValues from '@salesforce/apex/GameController.getGenrePicklistValues'
 import getPlatformPicklistValues from '@salesforce/apex/GameController.getPlatformPicklistValues'
-import RELEASE_DATE_FIELD from '@salesforce/schema/Game__c.Release_Date__c';
-import PLATFORM_FIELD from '@salesforce/schema/Game__c.Platform__c';
-import AGE_RATING_FIELD from '@salesforce/schema/Game__c.Age_Rating__c';
-import GENRE_FIELD from '@salesforce/schema/Game__c.Genre__c';
-import NAME_FIELD from '@salesforce/schema/Game__c.Name';
+
 
 const COLUMNS = [
-    { label: "Nombre", fieldName: NAME_FIELD.fieldApiName},
-    { label: "Género", fieldName: GENRE_FIELD.fieldApiName},
-    { label: "Fecha de Lanzamiento", fieldName: RELEASE_DATE_FIELD.fieldApiName, sortable: true },
-    { label: "Plataforma", fieldName: PLATFORM_FIELD.fieldApiName },
-    { label: "Clasificación por edad", fieldName: AGE_RATING_FIELD.fieldApiName, sortable: true}
+    { label: "Nombre", fieldName: "gameName"},
+    { label: "Género", fieldName: "genre"},
+    { label: "Fecha de Lanzamiento", fieldName: "releaseDate", sortable: true },
+    { label: "Plataforma", fieldName: "platform" },
+    { label: "Clasificación por edad", fieldName: "ageRating", sortable: true},
+    { label: "Ranking", fieldName: "ranking", sortable: true}
 ];
 
 
@@ -61,7 +58,7 @@ export default class GameList extends LightningElement {
         });
     }
     loadGames() {
-        getGames({
+        getMyGames({
             searchText: this.searchText,
             platform: this.platform,
             genre: this.genre,
@@ -71,7 +68,7 @@ export default class GameList extends LightningElement {
             sortDirection: this.sortDirection
         })
         .then(data => {
-            console.log("Data:", data);
+            console.log("Data My Games:", data);
             this.games = data;
             this.disabledPrev = this.currentPage === 1;
             this.disabledNext = data.length < ROW_SIZE_MAX;

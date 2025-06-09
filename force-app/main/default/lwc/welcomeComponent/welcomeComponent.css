@@ -1,0 +1,12 @@
+.welcome-container h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    color: #1e2443; 
+    text-align: center;
+}
+.welcome-container p{
+    font-size: 1rem;
+    font-weight: 300;
+    color: #000000; 
+    text-align: center;
+}

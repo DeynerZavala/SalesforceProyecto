@@ -14,7 +14,7 @@ public with sharing class CaseController {
         Integer limitRow,
         String sortDirection,
         String contactId,
-        Boolean closed
+        Boolean openedCase
     ) {
         List<String> conditions = new List<String>();
         String baseQuery = 'SELECT Id, Subject, Status, CreatedDate, ClosedDate, Priority,	SLA_Status__c, RecordType.Name FROM Case';
@@ -31,10 +31,12 @@ public with sharing class CaseController {
         if (String.isNotBlank(contactId)) {
             conditions.add('ContactId = \'' + String.escapeSingleQuotes(contactId) + '\'');
         }
-        if (closed != null && closed) {
-            conditions.add('ClosedDate != null');
+        if (openedCase != null && openedCase) {
+            conditions.add('ClosedDate = null');
         }
-
+        if (!conditions.isEmpty()) {
+            baseQuery += ' WHERE ' + String.join(conditions, ' AND ');
+        }
         Set<String> allowedFields = new Set<String>{ 'Subject', 'Status', 'Priority', 'CreatedDate', 'ClosedDate' };
         Set<String> allowedDirections = new Set<String>{ 'ASC', 'DESC','asc','desc' };
         if (allowedFields.contains(sortedBy)) {
